@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>    
+  <title>Login TEST - <%= title %></title>
+  <meta charset="utf-8">
+  <style>
+    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: #AAA2C2;
+        margin: 0;
+
+    }
+    
+    .login {
+        background-color: white;
+        margin-bottom: 50px;
+        padding:5px;
+        text-align:right;
+        box-shadow: -1px 23px 23px -10px rgba(0, 0, 0, 0.3);
+    }
+
+    .background {
+        background-color: white;
+        height: auto;
+        width: 90%;
+        max-width: 450px;
+        padding: 10px;
+        margin: 0 auto;
+        border-radius: 5px;
+        box-shadow: 0px 40px 30px -20px rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
+
+    table {
+        border: 1px #a39485 solid;
+        font-size: .9em;
+        box-shadow: 0 2px 5px rgba(0,0,0,.25);
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    th {
+        text-align: center;
+    }
+    
+    thead {
+        font-weight: bold;
+        color: #fff;
+        background: #73685d;
+    }
+    
+    td, th {
+        padding: 1em .5em;
+        vertical-align: middle;
+    }
+    
+    td {
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        background: #fff;
+    }
+
+    a {
+        color: #73685d;
+    }
+    
+    @media all and (max-width: 768px) {
+        
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+    
+    th {
+        text-align: right;
+    }
+    
+    table {
+        position: relative; 
+        padding-bottom: 0;
+        border: none;
+        box-shadow: 0 0 10px rgba(0,0,0,.2);
+    }
+    
+    thead {
+        float: left;
+        white-space: nowrap;
+    }
+    
+    tbody {
+        overflow-x: auto;
+        overflow-y: hidden;
+        position: relative;
+        white-space: nowrap;
+    }
+    
+    tr {
+        display: inline-block;
+        vertical-align: top;
+    }
+    
+    th {
+        border-bottom: 1px solid #a39485;
+    }
+    
+    td {
+        border-bottom: 1px solid #e5e5e5;
+    }
+}   
+  
+</style>
+</head>
+<body>
+    <div class="login"><a href="/member/logout">로그아웃</a></div>
+
+  <div class="background">
+
+    <table>
+        <thead>
+        <tr>
+            <th>이름</th>
+            <th>제목</th>
+            <th>내용</th>
+    
+        </tr>
+        </thead>
+        <tbody>
+            
+        <% for (var lst of list) { %>
+            <tr>
+                <td><%= lst.member.name %></td>
+                <td><%= lst.title %></td>
+                <td><%= lst.comment %></td>
+            </tr>
+        <% } %>
+            
+        </tbody>
+    </table>
+
+    <p><a href="/board/write">글쓰기</a></p>
+  </div>
+</body>
+</html>
