@@ -1,6 +1,7 @@
 const db = require('../models');
 const Member = db.member;
 const Op = db.Sequelize.Op;
+const bcrypt = require('bcrypt')
 
 
 exports.session = async (req, res) => {
@@ -19,8 +20,6 @@ exports.session = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        console.log("으아아아ㅏ아아앆") ;
-
         
         if(req && req.session && req.session.user) {
             console.log('이미 로그인 돼있음');
@@ -29,14 +28,22 @@ exports.login = async (req, res) => {
         else {
 
             console.log('req.body.userid : ' + req.body.userid);
+            
             const idCheck = await Member.findOne ({
                 where : {
                     uid : req.body.userid,
-                    pw : req.body.pw,
                 },
             });
 
             console.log(JSON.stringify(idCheck, null, 2));
+
+            if(bcrypt.compareSync(req.body.pw, idCheck.pw)) {
+                console.log('동일');
+            }
+            else {
+                res.send('동일하지 않음');
+            } 
+
 
             if (idCheck?.uid == req.body.userid) {
                 req.session.user = {
@@ -101,9 +108,11 @@ exports.create = async (req, res) => {
             res.send('중복된 아이디');
         }
         else {
+            const password = bcrypt.hashSync(req.body.pw, 10);
+
             Member.create({
                 uid : req.body.userid,
-                pw : req.body.pw,
+                pw : password,
                 name : req.body.name,
             });
 
